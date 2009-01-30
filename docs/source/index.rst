@@ -11,17 +11,21 @@ The :mod:`repoze.what` Quickstart plugin
 
 .. topic:: Overview
 
-    Your application may take advantage of a rather simple, and usual, 
+    This plugin allows you to take advantage of a rather simple, and usual, 
     authentication and authorization setup, in which the users' data, the 
     groups and the permissions used in the application are all stored in a 
     SQLAlchemy or Elixir-managed database.
+    
+    Put simply, it configures :mod:`repoze.who` and :mod:`repoze.what` in one
+    go so that you can have an authentication and authorization system working
+    quickly -- hence the name.
 
 
 How to install
 ==============
 
 The minimum requirements are SQLAlchemy, :mod:`repoze.who.plugins.sa`,
-:mod:`repoze.what`and :mod:`repoze.what.plugins.sql`, and you can install it 
+:mod:`repoze.what` and :mod:`repoze.what.plugins.sql`, and you can install it 
 all with ``easy_install``::
     
     easy_install repoze.what-quickstart
@@ -68,9 +72,9 @@ and authorization as explained in the next section.
 How to set it up
 ----------------
 
-Although :mod:`repoze.what` is meant to deal with authorization only,
-this module configures authentication and identification for you through
-:mod:`repoze.who`, so that you can get started quickly (hence the name).
+Although this is a :mod:`repoze.what` plugin and :mod:`repoze.what` is meant 
+to deal with authorization only, this module configures authentication and
+identification for you through :mod:`repoze.who` as well.
 
 Such a setup is performed by the :func:`setup_sql_auth` function:
 
