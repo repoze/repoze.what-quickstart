@@ -7,8 +7,8 @@ This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 .. _1.0rc1:
 
-:mod:`repoze.what.plugins.quickstart` 1.0rc1 (*unreleased*)
-===========================================================
+:mod:`repoze.what.plugins.quickstart` 1.0rc1 (2009-01-30)
+=========================================================
 
 This is the first release of :mod:`repoze.what.plugins.quickstart` as an
 independent project. This module used to be defined by old versions of
