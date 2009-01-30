@@ -26,9 +26,9 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 version = open(os.path.join(here, 'VERSION.txt')).readline().rstrip()
 
-setup(name='repoze.what.plugins.sql',
+setup(name='repoze.what-quickstart',
       version=version,
-      description=('The repoze.what SQL plugin'),
+      description=('The repoze.what Quickstart plugin'),
       long_description=README,
       classifiers=[
         "Development Status :: 4 - Beta",
@@ -46,7 +46,7 @@ setup(name='repoze.what.plugins.sql',
       author='Gustavo Narea',
       author_email='repoze-dev@lists.repoze.org',
       namespace_packages = ['repoze', 'repoze.what', 'repoze.what.plugins'],
-      url='http://code.gustavonarea.net/repoze.what.plugins.sql/',
+      url='http://code.gustavonarea.net/repoze.what-quickstart/',
       license='BSD-derived (http://www.repoze.org/LICENSE.txt)',
       packages=find_packages(),
       include_package_data=True,
@@ -57,13 +57,14 @@ setup(name='repoze.what.plugins.sql',
           'coverage',
           'nose',
           'repoze.who.plugins.sa',
+          'repoze.what.plugins.sql',
           ],
       install_requires=[
-          'repoze.what >= 1.0.2',
+          'repoze.what >= 1.0.4',
           'repoze.who',
-          'sqlalchemy >= 0.5',
           'zope.interface',
           'repoze.who.plugins.sa >= 1.0rc1',
+          'repoze.what.plugins.sql >= 1.0b2',
           ],
       test_suite='nose.collector',
       entry_points = """\

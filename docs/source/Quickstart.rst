@@ -5,8 +5,6 @@
 .. module:: repoze.what.plugins.quickstart
     :synopsis: Ready-to-use authentication and authorization
 .. moduleauthor:: Gustavo Narea <me@gustavonarea.net>
-.. moduleauthor:: Florent Aide <florent.aide@gmail.com>
-.. moduleauthor:: Agendaless Consulting and Contributors
 
 
 .. topic:: Overview
@@ -19,9 +17,9 @@
 
 To get started quickly, you may copy the SQLAlchemy-powered model 
 defined in `model_sa_example.py 
-<http://code.gustavonarea.net/repoze.what.plugins.sql/_static/model_sa_example.py>`_
+<http://code.gustavonarea.net/repoze.what-quickstart/_static/model_sa_example.py>`_
 (or `model_elixir_example.py 
-<http://code.gustavonarea.net/repoze.what.plugins.sql/_static/model_elixir_example.py>`_
+<http://code.gustavonarea.net/repoze.what-quickstart/_static/model_elixir_example.py>`_
 for Elixir) and then create at least a few rows to try it out::
 
     u = User()

@@ -43,8 +43,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General substitutions.
-project = u'repoze.what SQL plugin'
-copyright = u'2008, The Repoze Project'
+project = u'repoze.what Quickstart'
+copyright = u'2008-2009, The Repoze Project'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
@@ -150,7 +150,7 @@ html_last_updated_fmt = '%b %d, %Y'
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'repozewhatsqldoc'
+htmlhelp_basename = 'repozewhatquickstartdoc'
 
 
 # Options for LaTeX output
@@ -165,7 +165,7 @@ htmlhelp_basename = 'repozewhatsqldoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, document class [howto/manual]).
 latex_documents = [
-  ('index', 'repozewhatsql.tex', u'repoze.what SQL plugin Documentation',
+  ('index', 'repozewhatquickstart.tex', u'repoze.what Quickstart Documentation',
    u'Gustavo Narea', 'manual'),
 ]
 
@@ -190,4 +190,5 @@ intersphinx_mapping = {
     'http://static.repoze.org/whatdocs/': None,
     'http://static.repoze.org/whodocs/': None,
     'http://code.gustavonarea.net/repoze.who.plugins.sa/': None,
+    'http://code.gustavonarea.net/repoze.what.plugins.sql/': None,
     }

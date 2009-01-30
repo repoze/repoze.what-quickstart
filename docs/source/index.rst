@@ -1,45 +1,35 @@
-*********************************
-The :mod:`repoze.what` SQL plugin
-*********************************
+****************************************
+The :mod:`repoze.what` Quickstart plugin
+****************************************
 
 :Author: Gustavo Narea.
 :Status: Official
 :Latest release: |release|
 
-.. module:: repoze.what.plugins.sql
-    :synopsis: SQL support for repoze.what
+.. module:: repoze.what.plugins.quickstart
+    :synopsis: Ready-to-use authentication and authorization
 .. moduleauthor:: Gustavo Narea <me@gustavonarea.net>
-.. moduleauthor:: Florent Aide <florent.aide@gmail.com>
-.. moduleauthor:: Agendaless Consulting and Contributors
 
 .. topic:: Overview
 
-    The SQL plugin makes :mod:`repoze.what` support sources 
-    defined in `SQLAlchemy <http://www.sqlalchemy.org/>`_ or `Elixir 
-    <http://elixir.ematia.de/>`_-managed databases by 
-    providing one *group adapter*, one *permission adapter* and 
-    one utility to configure both in one go (optionally, when the 
-    *group source* and the *permission source* have a 
-    relationship). They are all defined in the :mod:`repoze.what.plugins.sql` 
-    module.
-    
-    This plugin also defines :mod:`repoze.what.plugins.quickstart`.
-    
-    .. warning::
-    
-        Only SQLAlchemy is intended to be supported. Elixir
-        is known to work but it's not officially supported, so Elixir support
-        *might* be broken in future releases.
+    Your application may take advantage of a rather simple, and usual, 
+    authentication and authorization setup, in which the users' data, the 
+    groups and the permissions used in the application are all stored in a 
+    SQLAlchemy or Elixir-managed database.
 
 
 How to install
 ==============
 
-The minimum requirements are SQLAlchemy, :mod:`repoze.who.plugins.sa`
-and :mod:`repoze.what`, and you can install it all with ``easy_install``::
+The minimum requirements are SQLAlchemy, :mod:`repoze.who.plugins.sa`,
+:mod:`repoze.what`and :mod:`repoze.what.plugins.sql`, and you can install it 
+all with ``easy_install``::
     
-        easy_install repoze.what.plugins.sql
+    easy_install repoze.what-quickstart
 
+The development mainline is available at the following Subversion repository::
+
+    http://svn.repoze.org/repoze.what/plugins/quickstart/trunk/
 
 How to get help?
 ================
@@ -56,7 +46,6 @@ Contents
 .. toctree::
     :maxdepth: 2
 
-    Adapters
     Quickstart
     News
 
