@@ -60,11 +60,11 @@ setup(name='repoze.what-quickstart',
           'repoze.what.plugins.sql',
           ],
       install_requires=[
-          'repoze.what >= 1.0.4',
+          'repoze.what >= 1.0.3',
           'repoze.who',
           'zope.interface',
           'repoze.who.plugins.sa >= 1.0rc1',
-          'repoze.what.plugins.sql >= 1.0b2',
+          'repoze.what.plugins.sql >= 1.0rc1',
           ],
       test_suite='nose.collector',
       entry_points = """\
