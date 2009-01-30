@@ -41,7 +41,7 @@ setup(name='repoze.what-quickstart',
         "Topic :: Internet :: WWW/HTTP :: WSGI",
         "Topic :: Security"
         ],
-      keywords='web application wsgi server wsgi sql sqlalchemy elixir '\
+      keywords='web application wsgi server sql sqlalchemy elixir ' \
                'authentication authorization repoze',
       author='Gustavo Narea',
       author_email='repoze-dev@lists.repoze.org',
