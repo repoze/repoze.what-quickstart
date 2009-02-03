@@ -241,9 +241,6 @@ def find_plugin_translations(translations={}):
     Process global translations for :mod:`repoze.who`/:mod:`repoze.what`
     SQLAlchemy plugins.
     
-    These "translations" are usually defined in quickstarted projects, in
-    {tg2_project}.config.app_cfg.base_config.sa_auth.translations
-    
     :param translations: The translation dictionary.
     :type translations: dict
     :return: The respective translations for the group and permission adapters,
