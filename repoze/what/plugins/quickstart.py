@@ -64,6 +64,15 @@ class FriendlyRedirectingFormPlugin(RedirectingFormPlugin):
     page, that page will receive the referrer URL as a query string variable
     whose name is "came_from".
     
+    .. warning::
+    
+        Do not use this plugin directly: It's likely that it will get included
+        into :mod:`repoze.who` under a new name. If this happens, we will
+        remove it from the quickstart to use the new one in :mod:`repoze.who`.
+        
+        So, in the mean time, if you want to use it in your project you 
+        should copy it.
+    
     """
     
     def __init__(self, *args, **kwargs):
