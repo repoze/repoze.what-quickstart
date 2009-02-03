@@ -81,16 +81,10 @@ class FriendlyRedirectingFormPlugin(RedirectingFormPlugin):
         """
         
         # Extracting the keyword arguments for this plugin:
-        self.login_counter_name = kwargs.get('login_counter_name')
-        self.post_login_url = kwargs.get('post_login_url')
-        self.post_logout_url = kwargs.get('post_logout_url')
-        if 'login_counter_name' in kwargs:
-            del kwargs['login_counter_name']
-        if 'post_login_url' in kwargs:
-            del kwargs['post_login_url']
-        if 'post_logout_url' in kwargs:
-            del kwargs['post_logout_url']
-        # If the counter name is something useless, like None:
+        self.login_counter_name = kwargs.pop('login_counter_name', None)
+        self.post_login_url = kwargs.pop('post_login_url', None)
+        self.post_logout_url = kwargs.pop('post_logout_url', None)
+        # If the counter name is something useless, like "" or None:
         if not self.login_counter_name:
             self.login_counter_name = '__logins'
         # Finally we can invoke the parent constructor
