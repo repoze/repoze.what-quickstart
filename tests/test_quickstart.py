@@ -81,25 +81,25 @@ class TestFriendlyRedirectingFormPlugin(TestCase):
         app = environ['repoze.who.application']
         self.assertEqual(app.location(), login_url + '?__logins=0')
     
-    def test_post_login_page_with_script_path(self):
+    def test_post_login_page_with_SCRIPT_NAME(self):
         """
-        While redirecting to the post-login page, the SCRIPT_PATH must be
+        While redirecting to the post-login page, the SCRIPT_NAME must be
         taken into account.
         
         """
         # --- Configuring the plugin:
         p = self._make_one(post_login_url='/welcome_back')
         # --- Configuring the mock environ:
-        environ = self._make_environ('/login_handler', script_path='/my-app')
+        environ = self._make_environ('/login_handler', SCRIPT_NAME='/my-app')
         # --- Testing it:
         p.identify(environ)
         app = environ['repoze.who.application']
         self.assertEqual(app.location(), '/my-app/welcome_back?__logins=0')
     
-    def test_post_login_page_with_script_path_and_came_from(self):
+    def test_post_login_page_with_SCRIPT_NAME_and_came_from(self):
         """
         While redirecting to the post-login page with the came_from variable, 
-        the SCRIPT_PATH must be taken into account.
+        the SCRIPT_NAME must be taken into account.
         
         """
         # --- Configuring the plugin:
@@ -108,7 +108,7 @@ class TestFriendlyRedirectingFormPlugin(TestCase):
         came_from = '/something'
         environ = self._make_environ('/login_handler',
                                      'came_from=%s' % quote(came_from),
-                                     script_path='/my-app')
+                                     SCRIPT_NAME='/my-app')
         # --- Testing it:
         p.identify(environ)
         app = environ['repoze.who.application']
@@ -250,16 +250,16 @@ class TestFriendlyRedirectingFormPlugin(TestCase):
                           [('forget', '1')])
         self.assertEqual(app.location(), '/')
     
-    def test_logout_with_script_path_and_without_post_logout_page(self):
+    def test_logout_with_SCRIPT_NAME_and_without_post_logout_page(self):
         """
-        Users must be redirected to SCRIPT_PATH on logout if there's no 
+        Users must be redirected to SCRIPT_NAME on logout if there's no 
         referrer page and no post-logout page defined.
         
         """
         # --- Configuring the plugin:
         p = self._make_one()
         # --- Configuring the mock environ:
-        environ = self._make_environ('/logout_handler', script_path='/my-app')
+        environ = self._make_environ('/logout_handler', SCRIPT_NAME='/my-app')
         # --- Testing it:
         app = p.challenge(environ, '401 Unauthorized', [('app', '1')],
                           [('forget', '1')])
@@ -304,16 +304,16 @@ class TestFriendlyRedirectingFormPlugin(TestCase):
                           [('forget', '1')])
         self.assertEqual(app.location(), logout_url)
     
-    def test_logout_with_post_logout_page_and_script_path(self):
+    def test_logout_with_post_logout_page_and_SCRIPT_NAME(self):
         """
         Users must be redirected to the post-logout page, if defined, taking
-        the SCRIPT_PATH into account.
+        the SCRIPT_NAME into account.
         
         """
         # --- Configuring the plugin:
         p = self._make_one(post_logout_url='/see_you_later')
         # --- Configuring the mock environ:
-        environ = self._make_environ('/logout_handler', script_path='/my-app')
+        environ = self._make_environ('/logout_handler', SCRIPT_NAME='/my-app')
         # --- Testing it:
         app = p.challenge(environ, '401 Unauthorized', [('app', '1')],
                           [('forget', '1')])
@@ -385,10 +385,10 @@ class TestFriendlyRedirectingFormPlugin(TestCase):
         app = HTTPFound(url)
         return app
     
-    def _make_environ(self, path_info, qs='', script_path='', redirect=None):
+    def _make_environ(self, path_info, qs='', SCRIPT_NAME='', redirect=None):
         environ = {
             'PATH_INFO': path_info,
-            'SCRIPT_PATH': script_path,
+            'SCRIPT_NAME': SCRIPT_NAME,
             'QUERY_STRING': qs,
             'SERVER_NAME': 'example.org',
             'SERVER_PORT': '80',

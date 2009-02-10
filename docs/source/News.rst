@@ -5,6 +5,18 @@
 This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 
+.. _1.0rc2:
+
+:mod:`repoze.what.plugins.quickstart` 1.0rc2 (2009-02-11)
+=========================================================
+
+
+* :class:`FriendlyRedirectingFormPlugin
+  <repoze.what.plugins.quickstart.FriendlyRedirectingFormPlugin>` ignored
+  ``environ['SCRIPT_NAME']``.
+* Small fixes in the documentation.
+
+
 .. _1.0rc1:
 
 :mod:`repoze.what.plugins.quickstart` 1.0rc1 (2009-01-30)

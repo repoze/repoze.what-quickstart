@@ -166,7 +166,7 @@ class FriendlyRedirectingFormPlugin(RedirectingFormPlugin):
         if environ['PATH_INFO'] == self.logout_handler_path:
             # Let's log the user out without challenging.
             came_from = environ.get('came_from')
-            script_path = environ.get('SCRIPT_PATH', '')
+            SCRIPT_NAME = environ.get('SCRIPT_NAME', '')
             if self.post_logout_url:
                 # Redirect to a predefined "post logout" URL.
                 destination = self._get_full_path(self.post_logout_url,
@@ -176,7 +176,7 @@ class FriendlyRedirectingFormPlugin(RedirectingFormPlugin):
                                   destination, 'came_from', came_from)
             else:
                 # Redirect to the referrer URL.
-                destination = came_from or script_path or '/'
+                destination = came_from or SCRIPT_NAME or '/'
             return HTTPFound(destination, headers=headers)
         
         if 'repoze.who.logins' in environ:
@@ -194,13 +194,13 @@ class FriendlyRedirectingFormPlugin(RedirectingFormPlugin):
     
     def _get_full_path(self, path, environ):
         """
-        Return the full path to ``path`` by prepending the SCRIPT_PATH.
+        Return the full path to ``path`` by prepending the SCRIPT_NAME.
         
         If ``path`` is a URL, do nothing.
         
         """
         if path.startswith('/'):
-            path = environ.get('SCRIPT_PATH', '') + path
+            path = environ.get('SCRIPT_NAME', '') + path
         return path
     
     def _get_logins(self, environ, force_typecast=False):
