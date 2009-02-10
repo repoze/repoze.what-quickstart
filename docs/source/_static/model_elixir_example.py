@@ -33,7 +33,7 @@ class User(Entity):
 
     user_name = Field(Unicode(16), required=True, unique=True)
 
-    _password = Field(Unicode(40), colname="password", required=True)
+    _password = Field(Unicode(80), colname="password", required=True)
 
     groups = ManyToMany(
         "Group",

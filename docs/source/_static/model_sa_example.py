@@ -60,7 +60,7 @@ class User(DeclarativeBase):
     
     user_name = Column(Unicode(16), unique=True)
 
-    _password = Column('password', Unicode(40))
+    _password = Column('password', Unicode(80))
 
     def _set_password(self, password):
         """encrypts password on the fly."""
