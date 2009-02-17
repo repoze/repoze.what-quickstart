@@ -25,8 +25,9 @@ How to install
 ==============
 
 The minimum requirements are SQLAlchemy, :mod:`repoze.who.plugins.sa`,
-:mod:`repoze.what` and :mod:`repoze.what.plugins.sql`, and you can install it 
-all with ``easy_install``::
+:mod:`repoze.who.plugins.friendlyform`, :mod:`repoze.what` and 
+:mod:`repoze.what.plugins.sql`, and you can install it all with 
+``easy_install``::
     
     easy_install repoze.what-quickstart
 
