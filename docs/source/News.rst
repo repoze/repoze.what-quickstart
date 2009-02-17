@@ -7,8 +7,8 @@ This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 .. _1.0rc3:
 
-:mod:`repoze.what.plugins.quickstart` 1.0rc3 (*unreleased*)
-===========================================================
+:mod:`repoze.what.plugins.quickstart` 1.0rc3 (2009-02-17)
+=========================================================
 
 * Updated the sample SQLAlchemy and Elixir models in the documentation, making
   clear how the SQLAlchemy session object should be imported depending on the
