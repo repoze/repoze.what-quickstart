@@ -15,7 +15,14 @@ from sqlalchemy.types import String, Unicode, UnicodeText, Integer, DateTime, \
                              Boolean, Float
 from sqlalchemy.orm import relation, backref, synonym
 
-from yourproject.model import DeclarativeBase, metadata, DBSession
+from yourproject.model import DeclarativeBase, metadata
+
+# =*=*=*=*=*=*=*=*=*=*=*=*=*  ATTENTION  =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+# If you're using TurboGears 2, uncomment the following line:
+#from yourproject.model import DBSession as Session
+# If you're using Pylons, uncomment the following line:
+#from yourproject.model.meta import Session
+# For other frameworks, import here your SQLAlchemy session object as "Session"
 
 
 # This is the association table for the many-to-many relationship between
