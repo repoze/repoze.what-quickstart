@@ -13,6 +13,12 @@ This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 * Updated the sample SQLAlchemy and Elixir models in the documentation, making
   clear how the SQLAlchemy session object should be imported depending on the
   used framework (if any).
+* Moved :class:`repoze.what.plugins.quickstart.FriendlyRedirectingFormPlugin`
+  to :class:`repoze.who.plugins.friendlyform.FriendlyFormPlugin`. **This may
+  seem like a backwards-incompatible change, but it is not** because since this
+  :mod:`repoze.who` plugin was defined in this package as of version 1.0rc1,
+  it was recommended not to use it directly because it was a temporary
+  location. If you didn't use it directly, you have nothing to worry about.
 
 
 .. _1.0rc2:

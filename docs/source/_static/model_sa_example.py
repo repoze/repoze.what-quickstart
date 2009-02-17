@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Sample SQLAlchemy-powered model definition for the repoze.what SQL plugin.
 
@@ -16,13 +17,6 @@ from sqlalchemy.types import String, Unicode, UnicodeText, Integer, DateTime, \
 from sqlalchemy.orm import relation, backref, synonym
 
 from yourproject.model import DeclarativeBase, metadata
-
-# =*=*=*=*=*=*=*=*=*=*=*=*=*  ATTENTION  =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
-# If you're using TurboGears 2, uncomment the following line:
-#from yourproject.model import DBSession as Session
-# If you're using Pylons, uncomment the following line:
-#from yourproject.model.meta import Session
-# For other frameworks, import here your SQLAlchemy session object as "Session"
 
 
 # This is the association table for the many-to-many relationship between
@@ -46,8 +40,7 @@ user_group_table = Table('user_group', metadata,
 # auth model
 
 class Group(DeclarativeBase):
-    """An ultra-simple group definition.
-    """
+    """An ultra-simple group definition."""
     __tablename__ = 'group'
 
     group_id = Column(Integer, autoincrement=True, primary_key=True)
@@ -58,8 +51,10 @@ class Group(DeclarativeBase):
 
 
 class User(DeclarativeBase):
-    """Reasonably basic User definition. Probably would want additional
+    """
+    Reasonably basic User definition. Probably would want additional
     attributes.
+    
     """
     __tablename__ = 'user'
 
@@ -84,23 +79,24 @@ class User(DeclarativeBase):
         hash.update(password_8bit + salt.hexdigest())
         hashed_password = salt.hexdigest() + hash.hexdigest()
 
-        # make sure the hased password is an UTF-8 object at the end of the
-        # process because SQLAlchemy _wants_ a unicode object for Unicode columns
+        # Make sure the hased password is an UTF-8 object at the end of the
+        # process because SQLAlchemy _wants_ a unicode object for Unicode
+        # fields
         if not isinstance(hashed_password, unicode):
             hashed_password = hashed_password.decode('UTF-8')
 
         self._password = hashed_password
 
     def _get_password(self):
-        """returns password
-        """
+        """Return the password hashed"""
         return self._password
 
     password = synonym('_password', descriptor=property(_get_password,
                                                         _set_password))
 
     def validate_password(self, password):
-        """Check the password against existing credentials.
+        """
+        Check the password against existing credentials.
 
         :param password: the password that was provided by the user to
             try and authenticate. This is the clear text version that we will

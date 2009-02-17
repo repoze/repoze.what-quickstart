@@ -17,10 +17,12 @@
 
 import os
 
-from ez_setup import use_setuptools
-use_setuptools()
-
-from setuptools import setup, find_packages
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from ez_setup import use_setuptools
+    use_setuptools()
+    from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
@@ -58,12 +60,14 @@ setup(name='repoze.what-quickstart',
           'nose',
           'repoze.who.plugins.sa',
           'repoze.what.plugins.sql',
+          'repoze.who-friendlyform',
           ],
       install_requires=[
           'repoze.what >= 1.0.3',
           'repoze.who',
           'repoze.who.plugins.sa >= 1.0rc1',
           'repoze.what.plugins.sql >= 1.0rc1',
+          'repoze.who-friendlyform',
           ],
       test_suite='nose.collector',
       entry_points = """\

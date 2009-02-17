@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Sample Elixir-powered model definition for the repoze.what SQL plugin.
 
@@ -10,21 +11,10 @@ import os
 from hashlib import sha1
 from datetime import datetime
 
-import elixir
 from elixir import Entity, Field
 from elixir import DateTime, Unicode
 from elixir import using_options
 from elixir import ManyToMany
-
-# =*=*=*=*=*=*=*=*=*=*=*=*=*  ATTENTION  =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
-# If you're using TurboGears 2, uncomment the following line:
-#from yourproject.model import DBSession as Session
-# If you're using Pylons, uncomment the following line:
-#from yourproject.model.meta import Session
-# For other frameworks, import here your SQLAlchemy session object as "Session"
-
-metadata = elixir.metadata
-elixir.session = Session
 
 
 class User(Entity):
@@ -60,16 +50,16 @@ class User(Entity):
         hash.update(password_8bit + salt.hexdigest())
         hashed_password = salt.hexdigest() + hash.hexdigest()
 
-        # make sure the hased password is an UTF-8 object at the end of the
-        # process because SQLAlchemy _wants_ a unicode object for Unicode columns
+        # Make sure the hased password is an UTF-8 object at the end of the
+        # process because SQLAlchemy _wants_ a unicode object for Unicode
+        # fields
         if not isinstance(hashed_password, unicode):
             hashed_password = hashed_password.decode('UTF-8')
 
         self._password = hashed_password
 
     def _get_password(self):
-        """returns password
-        """
+        """Return the password hashed"""
         return self._password
 
     password = descriptor=property(_get_password, _set_password)

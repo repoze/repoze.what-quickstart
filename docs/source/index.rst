@@ -133,15 +133,6 @@ dictionary used above:
       ``User.validate_password``.
 
 
-:mod:`repoze.who` plugins
--------------------------
-
-This plugin defines the following :mod:`repoze.who` plugins:
-
-.. autoclass:: FriendlyRedirectingFormPlugin
-    :members: __init__
-
-
 How to get help?
 ================
 
