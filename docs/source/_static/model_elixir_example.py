@@ -10,19 +10,21 @@ import os
 from hashlib import sha1
 from datetime import datetime
 
-from sqlalchemy.orm import scoped_session, sessionmaker
 import elixir
 from elixir import Entity, Field
 from elixir import DateTime, Unicode
 from elixir import using_options
 from elixir import ManyToMany
 
-from tg import config
-
-DBSession = scoped_session(sessionmaker(autoflush=True, autocommit=False))
+# =*=*=*=*=*=*=*=*=*=*=*=*=*  ATTENTION  =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+# If you're using TurboGears 2, uncomment the following line:
+#from yourproject.model import DBSession as Session
+# If you're using Pylons, uncomment the following line:
+#from yourproject.model.meta import Session
+# For other frameworks, import here your SQLAlchemy session object as "Session"
 
 metadata = elixir.metadata
-elixir.session = DBSession
+elixir.session = Session
 
 
 class User(Entity):
