@@ -104,6 +104,22 @@ class TestSetupAuth(BasePluginTester):
         self.assertEqual(form.post_logout_url, post_logout_url)
         self.assertEqual(form.login_counter_name, login_counter_name)
 
+    def test_no_groups_or_permissions(self):
+        """Groups and permissions must be optional"""
+        app = setup_sql_auth(DummyApp(), User, None, None, DBSession)
+        self._in_registry(app, 'authorization_md', AuthorizationMetadata)
+        # Testing that in fact it works:
+        environ = {}
+        identity = {'repoze.who.userid': u'rms'}
+        md = app.name_registry['authorization_md']
+        md.add_metadata(environ, identity)
+        expected_credentials = {
+            'repoze.what.userid': u'rms',
+            'groups': tuple(),
+            'permissions': tuple()}
+        self.assertEqual(expected_credentials, 
+                         environ['repoze.what.credentials'])
+
 
 class TestPluginTranslationsFinder(TestCase):
     

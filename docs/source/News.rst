@@ -5,6 +5,17 @@
 This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 
+.. _1.0rc4:
+
+:mod:`repoze.what.plugins.quickstart` 1.0rc4 (2009-02-18)
+=========================================================
+
+* Made the groups/permissions-based authorization pattern optional, as in
+  :mod:`repoze.what` itself. If you don't want to use it, set ``group_class``
+  and ``permission_class`` to ``None`` (when calling
+  :func:`repoze.what.plugins.quickstart.setup_sql_auth`).
+
+
 .. _1.0rc3:
 
 :mod:`repoze.what.plugins.quickstart` 1.0rc3 (2009-02-17)

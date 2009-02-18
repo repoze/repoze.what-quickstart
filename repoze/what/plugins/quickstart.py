@@ -179,19 +179,26 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
     Additional keyword arguments will be passed to 
     :class:`repoze.who.middleware.PluggableAuthenticationMiddleware`.
     
+    .. note::
+    
+        If you don't want to use the groups/permissions-based authorization
+        pattern, then set ``group_class`` and ``permission_class`` to ``None``.
+    
     """
     plugin_translations = find_plugin_translations(translations)
     
-    source_adapters = configure_sql_adapters(
-        user_class,
-        group_class,
-        permission_class,
-        dbsession,
-        plugin_translations['group_adapter'],
-        plugin_translations['permission_adapter']
-        )
-    group_adapters = {'sql_auth': source_adapters['group']}
-    permission_adapters = {'sql_auth': source_adapters['permission']}
+    if group_class is None or permission_class is None:
+        group_adapters = permission_adapters = None
+    else:
+        source_adapters = configure_sql_adapters(
+            user_class,
+            group_class,
+            permission_class,
+            dbsession,
+            plugin_translations['group_adapter'],
+            plugin_translations['permission_adapter'])
+        group_adapters = {'sql_auth': source_adapters['group']}
+        permission_adapters = {'sql_auth': source_adapters['permission']}
     
     # Setting the repoze.who authenticators:
     sqlauth = SQLAlchemyAuthenticatorPlugin(user_class, dbsession)
