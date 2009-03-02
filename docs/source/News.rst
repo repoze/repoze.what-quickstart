@@ -5,6 +5,15 @@
 This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 
+.. _1.0:
+
+:mod:`repoze.what.plugins.quickstart` 1.0 (2009-03-02)
+======================================================
+
+The final version 1.0 of :mod:`repoze.what.plugins.quickstart` is the same as
+v1.0rc4, since no bug has been found.
+
+
 .. _1.0rc4:
 
 :mod:`repoze.what.plugins.quickstart` 1.0rc4 (2009-02-18)
