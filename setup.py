@@ -33,7 +33,7 @@ setup(name='repoze.what-quickstart',
       description=('The repoze.what Quickstart plugin'),
       long_description=README,
       classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
         "Natural Language :: English",
