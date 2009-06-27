@@ -27,17 +27,17 @@ from repoze.who.plugins.auth_tkt import AuthTktCookiePlugin
 from repoze.who.plugins.sa import SQLAlchemyAuthenticatorPlugin, \
                                   SQLAlchemyUserMDPlugin
 from repoze.who.plugins.friendlyform import FriendlyFormPlugin
-from repoze.who.tests import Base as BasePluginTester, DummyApp
 
 from repoze.what.middleware import AuthorizationMetadata
 from repoze.what.plugins.quickstart import setup_sql_auth, \
                                            find_plugin_translations
 
-import databasesetup
-from fixture.model import User, Group, Permission, DBSession
+from tests import databasesetup
+from tests.fixture.model import User, Group, Permission, DBSession
+from tests import MockApplication
 
 
-class TestSetupAuth(BasePluginTester):
+class TestSetupAuth(TestCase):
     """Tests for the setup_sql_auth() function"""
     
     def setUp(self):
@@ -57,7 +57,7 @@ class TestSetupAuth(BasePluginTester):
                 registry_type.__name__)
     
     def _makeApp(self, **who_args):
-        app_with_auth = setup_sql_auth(DummyApp(), User, Group, Permission,
+        app_with_auth = setup_sql_auth(MockApplication(), User, Group, Permission,
                                        DBSession, **who_args)
         return app_with_auth
 
@@ -106,7 +106,7 @@ class TestSetupAuth(BasePluginTester):
 
     def test_no_groups_or_permissions(self):
         """Groups and permissions must be optional"""
-        app = setup_sql_auth(DummyApp(), User, None, None, DBSession)
+        app = setup_sql_auth(MockApplication(), User, None, None, DBSession)
         self._in_registry(app, 'authorization_md', AuthorizationMetadata)
         # Testing that in fact it works:
         environ = {}

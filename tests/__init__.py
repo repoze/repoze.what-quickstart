@@ -15,4 +15,18 @@
 #
 ##############################################################################
 
-"""Test suite for the repoze.what SQL plugin."""
+"""Test suite for the repoze.what Quickstart plugin."""
+
+
+
+class MockApplication(object):
+    """Fake WSGI application."""
+    
+    def __init__(self, status=None, headers=None):
+        self.status = status
+        self.headers = headers
+    
+    def __call__(self, environ, start_response):
+        self.environ = environ
+        start_response(self.status, self.headers)
+        return ['response body']
