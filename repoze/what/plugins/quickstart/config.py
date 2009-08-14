@@ -38,14 +38,22 @@ _SUPPORTED_TRANSLATIONS = (
 
 def add_auth_from_config(app, global_conf, config_file):
     """
-    Add authentication and authorization middleware (defined in ``config_file``
-    to ``app``.
+    Add authentication and authorization middleware.
+    
+    :param app: The WSGI application to be secured.
+    :param global_conf: The PasteDeploy global configuration.
+    :type global_conf: dict
+    :param config_file: The path to the configuration file for the quickstart
+        plugin.
+    :type config_file: basestring
     
     ``global_conf`` is not used at present, but could be used in the future.
     
-    :raises MissingOptionError: If one of the mandatory options (``dbsession``,
-        ``user_class``, ``group_class``, ``permission_class``) is missing.
-    :raises BadOptionError: If an option has an invalid value.
+    :raises repoze.what.plugins.quickstart.MissingOptionError: If one of the 
+        mandatory options (``dbsession``, ``user_class``, ``group_class``, 
+        ``permission_class``) is missing.
+    :raises repoze.what.plugins.quickstart.BadOptionError: If an option has an
+        invalid value.
     
     """
     auth_config = _AuthConf(config_file)

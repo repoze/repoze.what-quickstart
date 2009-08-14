@@ -36,6 +36,16 @@ The development mainline is available at the following Subversion repository::
     http://svn.repoze.org/repoze.what/plugins/quickstart/trunk/
 
 
+How to get help?
+================
+
+The prefered place to ask questions is the `Repoze mailing list 
+<http://lists.repoze.org/listinfo/repoze-dev>`_ or the `#repoze 
+<irc://irc.freenode.net/#repoze>`_ IRC channel. Bugs reports and feature 
+requests should be sent to `the issue tracker of the Repoze project 
+<http://bugs.repoze.org/>`_.
+
+
 How to use it
 =============
 
@@ -133,22 +143,13 @@ dictionary used above:
     * ``validate_password``: The translation for the method in
       ``User.validate_password``.
 
-
-How to get help?
-================
-
-The prefered place to ask questions is the `Repoze mailing list 
-<http://lists.repoze.org/listinfo/repoze-dev>`_ or the `#repoze 
-<irc://irc.freenode.net/#repoze>`_ IRC channel. Bugs reports and feature 
-requests should be sent to `the issue tracker of the Repoze project 
-<http://bugs.repoze.org/>`_.
-
 Contents
 ========
 
 .. toctree::
     :maxdepth: 2
 
+    Config
     News
 
 
