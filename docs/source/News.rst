@@ -5,6 +5,13 @@
 This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 
+:mod:`repoze.what.plugins.quickstart` 1.0.1 (2009-08-14)
+========================================================
+
+* Added a warning to encourage people to set a custom key to encrypt and decrypt
+  the cookies.
+
+
 .. _1.0:
 
 :mod:`repoze.what.plugins.quickstart` 1.0 (2009-03-02)

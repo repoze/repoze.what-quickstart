@@ -100,7 +100,8 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
     :param form_identifies: Whether the ``form_plugin`` may and should act as
         an :mod:`repoze.who` identifier.
     :type form_identifies: bool
-    :param cookie_secret: The "secret" for the AuthTktCookiePlugin.
+    :param cookie_secret: The "secret" for the AuthTktCookiePlugin (**set a
+        custom one!**).
     :type cookie_secret: str
     :param cookie_name: The name for the AuthTktCookiePlugin.
     :type cookie_name: str
@@ -182,6 +183,12 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
     
     Additional keyword arguments will be passed to 
     :class:`repoze.who.middleware.PluggableAuthenticationMiddleware`.
+    
+    .. warning::
+    
+        It's very important to set a custom ``cookie_secret``! It's the key to
+        encrypt *and* decrypt the cookies, so you shouldn't leave the default
+        one.
     
     .. note::
     
