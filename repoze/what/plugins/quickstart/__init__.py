@@ -30,6 +30,10 @@ from repoze.what.middleware import setup_auth
 from repoze.what.plugins.sql import configure_sql_adapters
 
 
+__all__ = ("setup_sql_auth", "add_auth_from_config",
+           "BadConfigurationException", "MissingOptionError", "BadOptionError")
+
+
 def find_plugin_translations(translations={}):
     """
     Process global translations for :mod:`repoze.who`/:mod:`repoze.what`
@@ -244,3 +248,8 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
     middleware = setup_auth(app, group_adapters, permission_adapters, 
                             **who_args)
     return middleware
+
+
+# This can't be imported at the top:
+from repoze.what.plugins.quickstart.config import (add_auth_from_config,
+    BadConfigurationException, MissingOptionError, BadOptionError)
