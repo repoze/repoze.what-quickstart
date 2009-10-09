@@ -197,19 +197,23 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
     
     """
     plugin_translations = find_plugin_translations(translations)
-    
-    if group_class is None or permission_class is None:
-        group_adapters = permission_adapters = None
-    else:
-        source_adapters = configure_sql_adapters(
+    source_adapters = configure_sql_adapters(
             user_class,
             group_class,
             permission_class,
             dbsession,
             plugin_translations['group_adapter'],
             plugin_translations['permission_adapter'])
-        group_adapters = {'sql_auth': source_adapters['group']}
-        permission_adapters = {'sql_auth': source_adapters['permission']}
+
+    group_adapters= {}
+    group_adapter = source_adapters.get('group')
+    if group_adapter:
+        group_adapters = {'sql_auth': group_adapter}
+
+    permission_adapters = {}
+    permission_adapter = source_adapters.get('permission')
+    if permission_adapter:
+        permission_adapters = {'sql_auth': permission_adapter}
     
     # Setting the repoze.who authenticators:
     sqlauth = SQLAlchemyAuthenticatorPlugin(user_class, dbsession)
