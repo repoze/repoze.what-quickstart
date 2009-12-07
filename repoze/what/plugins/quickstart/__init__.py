@@ -20,11 +20,14 @@ Sample plugins and middleware configuration for :mod:`repoze.who` and
 :mod:`repoze.what`.
 
 """
+import sys
+import logging
 
 from repoze.who.plugins.auth_tkt import AuthTktCookiePlugin
 from repoze.who.plugins.sa import SQLAlchemyAuthenticatorPlugin, \
                                   SQLAlchemyUserMDPlugin
 from repoze.who.plugins.friendlyform import FriendlyFormPlugin
+from repoze.who.config import _LEVELS
 
 from repoze.what.middleware import setup_auth
 from repoze.what.plugins.sql import configure_sql_adapters
@@ -256,6 +259,24 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
         who_args['mdproviders'] = []
     who_args['mdproviders'].append(('sql_user_md', sql_user_md))
     
+    # Including logging
+    log_file = who_args.pop('log_file', None)
+    if log_file is not None:
+        if log_file.lower() == 'stdout':
+            log_stream = sys.stdout
+        elif log_file.lower() == 'stderr':
+            log_stream = sys.stderr
+        else:
+            log_stream = open(log_file, 'wb')
+        who_args['log_stream'] = log_stream
+
+    log_level = who_args.get('log_level', None)
+    if log_level is None:
+        log_level = logging.INFO
+    else:
+        log_level = _LEVELS[log_level.lower()]
+    who_args['log_level'] = log_level
+
     middleware = setup_auth(app, group_adapters, permission_adapters, 
                             **who_args)
     return middleware

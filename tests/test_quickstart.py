@@ -18,6 +18,8 @@ Tests for the repoze.what SQL quickstart.
 
 """
 
+from os import path
+import sys
 from unittest import TestCase
 
 from paste.httpexceptions import HTTPFound
@@ -34,7 +36,7 @@ from repoze.what.plugins.quickstart import setup_sql_auth, \
 
 from tests import databasesetup
 from tests.fixture.model import User, Group, Permission, DBSession
-from tests import MockApplication
+from tests import MockApplication, FIXTURE_DIR
 
 
 class TestSetupAuth(TestCase):
@@ -104,6 +106,36 @@ class TestSetupAuth(TestCase):
         self.assertEqual(form.post_logout_url, post_logout_url)
         self.assertEqual(form.login_counter_name, login_counter_name)
 
+    def test_stdout_logging(self):
+        """Test using a stdout for logging"""
+        log_level = "debug"
+        log_file = "stdout"
+        app = self._makeApp(log_level=log_level, log_file=log_file)
+        logger = app.logger
+        self.assertEqual(logger.level, 10)
+        handler = app.logger.handlers[0]
+        self.assertEqual(handler.stream, sys.stdout)
+
+    def test_stderr_logging(self):
+        """Test using a stderr for logging"""
+        log_level = "warning"
+        log_file = "stderr"
+        app = self._makeApp(log_level=log_level, log_file=log_file)
+        logger = app.logger
+        self.assertEqual(logger.level, 30)
+        handler = app.logger.handlers[0]
+        self.assertEqual(handler.stream, sys.stderr)
+
+    def test_file_logging(self):
+        """Test using a log file for logging"""
+        log_level = "info"
+        log_file = path.join(FIXTURE_DIR, "file.log")
+        app = self._makeApp(log_level=log_level, log_file=log_file)
+        logger = app.logger
+        self.assertEqual(logger.level, 20)
+        handler = app.logger.handlers[0]
+        self.assertEqual(handler.stream.name, log_file)
+
     def test_no_groups_or_permissions(self):
         """Groups and permissions must be optional"""
         app = setup_sql_auth(MockApplication(), User, None, None, DBSession)
@@ -165,3 +197,4 @@ class TestPluginTranslationsFinder(TestCase):
         md_translations = {'user_name': translations['user_name']}
         self.assertEqual(md_translations, 
                          plugin_translations['mdprovider'])
+

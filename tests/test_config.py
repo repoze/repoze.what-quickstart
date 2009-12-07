@@ -33,14 +33,11 @@ from repoze.what.plugins.quickstart import (add_auth_from_config,
 from tests import databasesetup
 from tests.fixture.model import User, Group, Permission, DBSession
 from tests.fixture.misc_config import form_plugin
-from tests import MockApplication
+from tests import MockApplication, FIXTURE_DIR
 
 
 #{ Constants
 
-
-HERE = os.path.abspath(os.path.dirname(__file__))
-FIXTURE_DIR = os.path.join(HERE, "fixture")
 
 DEFAULT_OPTIONS = {
     'form_plugin': None,
@@ -209,6 +206,15 @@ class TestConfig(TestCase):
         expected_options = make_options(user_class=User, group_class=Group,
             permission_class=Permission, dbsession=DBSession)
         self._check_auth(app, expected_options)
+    
+    def test_logging_config(self):
+        """A config file with logging options."""
+        app = make_app("logging-config")
+        logger = app.logger
+        self.assertEqual(logger.level, 10)
+        handler = app.logger.handlers[0]
+        self.assertEqual(handler.stream.name,
+                         os.path.join(FIXTURE_DIR, "file.log"))
     
     def test_missing_options(self):
         """Configuration files with missing mandatory options."""

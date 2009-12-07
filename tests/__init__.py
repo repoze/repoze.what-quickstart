@@ -14,9 +14,26 @@
 # FITNESS FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-
 """Test suite for the repoze.what Quickstart plugin."""
 
+import os
+
+#{ Useful variables
+
+
+_here = os.path.abspath(os.path.dirname(__file__))
+FIXTURE_DIR = os.path.join(_here, "fixture")
+
+
+#{ Fixture
+
+
+def tearDown():
+    """Remove temporary files."""
+    os.remove(os.path.join(FIXTURE_DIR, "file.log"))
+
+
+#{ Mock objects
 
 
 class MockApplication(object):
@@ -30,3 +47,5 @@ class MockApplication(object):
         self.environ = environ
         start_response(self.status, self.headers)
         return ['response body']
+
+#}

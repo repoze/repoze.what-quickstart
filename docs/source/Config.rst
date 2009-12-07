@@ -6,6 +6,7 @@
 
 .. versionadded:: 1.0.1
 
+
 If you prefer to configure the quickstart plugin via Ini files instead of
 Python code, that's possible as of version 1.0.1.
 
@@ -64,6 +65,12 @@ including the so-called "translations":
     post_logout_url = /do-something-after-logout
     login_counter_name = login_attempts
     
+    # Logging.
+    # You can use the ``here`` variable in ``log_file``, which represents the
+    # absolute path to this file's parent directory.
+    log_file = stdout
+    log_level = debug
+    
     [authorization]
     group_class = tests.fixture.model:Group
     permission_class = tests.fixture.model:Permission
@@ -76,6 +83,14 @@ including the so-called "translations":
     group_name = team_name
     permissions = perms
     permission_name = perm_name
+
+
+``log_file`` can be either ``"stdout"``, ``"stderr"`` or a path to a custom
+log file.
+
+.. versionadded:: 1.0.4
+    Added the options ``log_file`` and ``log_level`` to the ``[authentication]``
+    section.
 
 
 API

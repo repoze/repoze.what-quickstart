@@ -16,6 +16,7 @@
 Parser of configuration files for the repoze.what Quickstart plugin.
 
 """
+from os import path
 from ConfigParser import ConfigParser
 
 from pkg_resources import EntryPoint
@@ -117,7 +118,8 @@ class _AuthConf(object):
             configuration file.
         
         """
-        self.parser = ConfigParser()
+        root_dir = path.dirname(path_to_conf)
+        self.parser = ConfigParser(defaults={'here': root_dir})
         self.parser.read(path_to_conf)
         self.options = {'translations': {}}
     
@@ -143,6 +145,8 @@ class _AuthConf(object):
         self._add_string("authentication", "logout_handler")
         self._add_string("authentication", "post_logout_url")
         self._add_string("authentication", "login_counter_name")
+        self._add_string("authentication", "log_level")
+        self._add_string("authentication", "log_file")
         
         # Adding authorization options:
         self._add_object("authorization", "group_class")

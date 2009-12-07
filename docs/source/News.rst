@@ -5,6 +5,13 @@
 This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 
+Version 1.0.4 (2009-12-07)
+==========================
+
+* Added the options ``log_file`` and ``log_level`` to the ``[authentication]``
+  section in the :doc:`configuration file <Config>`. Thanks to Darryl Cousins.
+
+
 Version 1.0.1 (2009-08-14)
 ==========================
 
