@@ -22,8 +22,6 @@ from os import path
 import sys
 from unittest import TestCase
 
-from paste.httpexceptions import HTTPFound
-
 from repoze.who.plugins.basicauth import BasicAuthPlugin
 from repoze.who.plugins.auth_tkt import AuthTktCookiePlugin
 from repoze.who.plugins.sa import SQLAlchemyAuthenticatorPlugin, \
