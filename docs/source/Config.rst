@@ -58,6 +58,8 @@ including the so-called "translations":
     form_identifies = True
     cookie_name = authntkt
     cookie_secret = you cannot see this
+    cookie_timeout = 3600
+    cookie_reissue_time = 1800
     login_url = /log-me-in
     login_handler = /handle-login
     post_login_url = /do-something-after-login
@@ -88,9 +90,13 @@ including the so-called "translations":
 ``log_file`` can be either ``"stdout"``, ``"stderr"`` or a path to a custom
 log file.
 
-.. versionadded:: 1.0.4
+.. versionchanged:: 1.0.4
     Added the options ``log_file`` and ``log_level`` to the ``[authentication]``
     section.
+
+.. versionchanged:: 1.0.5
+    Added the options ``cookie_timeout`` and ``cookie_reissue_time`` to the
+    ``[authentication]`` section.
 
 
 API

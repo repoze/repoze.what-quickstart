@@ -64,7 +64,7 @@ setup(name='repoze.what-quickstart',
           ],
       install_requires=[
           'repoze.what >= 1.0.3',
-          'repoze.who',
+          'repoze.who >= 1.0.18',
           'repoze.who.plugins.sa >= 1.0rc1',
           'repoze.what.plugins.sql >= 1.0rc2',
           'repoze.who-friendlyform',

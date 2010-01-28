@@ -139,6 +139,8 @@ class _AuthConf(object):
         self._add_boolean("authentication", "form_identifies")
         self._add_string("authentication", "cookie_name")
         self._add_string("authentication", "cookie_secret")
+        self._add_integer("authentication", "cookie_timeout")
+        self._add_integer("authentication", "cookie_reissue_time")
         self._add_string("authentication", "login_url")
         self._add_string("authentication", "login_handler")
         self._add_string("authentication", "post_login_url")
@@ -178,6 +180,21 @@ class _AuthConf(object):
             except ValueError:
                 value = self.parser.get(section, option)
                 raise BadOptionError('Option %s ("%s") is not a boolean' %
+                                     (option, value))
+            else:
+                self.options[option] = value
+    
+    def _add_integer(self, section, option):
+        """
+        Add the ``option`` as a integer if it's defined.
+        
+        """
+        if self.parser.has_option(section, option):
+            try:
+                value = self.parser.getint(section, option)
+            except ValueError:
+                value = self.parser.get(section, option)
+                raise BadOptionError('Option %s ("%s") is not an integer' %
                                      (option, value))
             else:
                 self.options[option] = value

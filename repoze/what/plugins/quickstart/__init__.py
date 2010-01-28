@@ -88,7 +88,9 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
                    login_url='/login', login_handler='/login_handler',
                    post_login_url=None, logout_handler='/logout_handler',
                    post_logout_url=None, login_counter_name=None,
-                   translations={}, **who_args):
+                   translations={}, cookie_timeout=None,
+                   cookie_reissue_time=None,
+                   **who_args):
     """
     Configure :mod:`repoze.who` and :mod:`repoze.what` with SQL-only 
     authentication and authorization, respectively.
@@ -125,6 +127,12 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
     :type login_counter_name: str
     :param translations: The model translations.
     :type translations: dict
+    :param cookie_timeout: The time (in seconds) during which the session cookie
+        would be valid.
+    :type cookie_timeout: :class:`int`
+    :param cookie_reissue_time: How often should the session cookie be reissued
+        (in seconds); must be less than ``timeout``.
+    :type cookie_reissue_time: :class:`int`
     :return: The WSGI application with authentication and authorization
         middleware.
     
@@ -198,6 +206,9 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
         If you don't want to use the groups/permissions-based authorization
         pattern, then set ``group_class`` and ``permission_class`` to ``None``.
     
+    .. versionchanged:: 1.0.5
+        Introduced the ``cookie_timeout`` and ``cookie_reissue_time`` arguments.
+    
     """
     plugin_translations = find_plugin_translations(translations)
     source_adapters = configure_sql_adapters(
@@ -225,7 +236,9 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
         who_args['authenticators'] = []
     who_args['authenticators'].append(('sqlauth', sqlauth))
     
-    cookie = AuthTktCookiePlugin(cookie_secret, cookie_name)
+    cookie = AuthTktCookiePlugin(cookie_secret, cookie_name,
+                                 timeout=cookie_timeout,
+                                 reissue_time=cookie_reissue_time)
     
     # Setting the repoze.who identifiers
     if 'identifiers' not in who_args:

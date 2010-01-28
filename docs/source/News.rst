@@ -5,6 +5,16 @@
 This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 
+Version 1.0.5 (2010-01-27)
+==========================
+
+Added support for custom ``Max-Age`` values as requested on `pylons-discuss
+<http://groups.google.com/group/pylons-discuss/browse_thread/thread/3bf1a87670443b45>`_.
+To use it, you can pass the ``cookie_timeout`` and ``cookie_reissue_time``
+to :func:`~repoze.what.plugins.quickstart.setup_sql_auth`. This is also supported
+in the Ini configuration files.
+
+
 Version 1.0.4 (2009-12-07)
 ==========================
 

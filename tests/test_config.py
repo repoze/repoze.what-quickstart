@@ -44,6 +44,8 @@ DEFAULT_OPTIONS = {
     'form_identifies': True,
     'cookie_secret': "secret",
     'cookie_name': "authtkt",
+    'cookie_timeout': None,
+    'cookie_reissue_time': None,
     'login_url': "/login",
     'login_handler': "/login_handler",
     'post_login_url': None,
@@ -140,6 +142,8 @@ class TestConfig(TestCase):
         cookie = app.name_registry['cookie']
         self.assertEqual(cookie.cookie_name, options['cookie_name'])
         self.assertEqual(cookie.secret, options['cookie_secret'])
+        self.assertEqual(cookie.timeout, options['cookie_timeout'])
+        self.assertEqual(cookie.reissue_time, options['cookie_reissue_time'])
         
         # === Checking the repoze.what settings:
         self._in_registry(app, "authorization_md", AuthorizationMetadata)
@@ -197,7 +201,8 @@ class TestConfig(TestCase):
             post_login_url="/do-something-after-login",
             logout_handle="/log-me-out", 
             post_logout_url="/do-something-after-logout",
-            login_counter_name="login_attempts", translations=translations)
+            login_counter_name="login_attempts", translations=translations,
+            cookie_timeout=3600, cookie_reissue_time=1800)
         self._check_auth(app, expected_options)
     
     def test_minimal_config(self):
@@ -237,6 +242,15 @@ class TestConfig(TestCase):
         
         """
         self.assertRaises(BadOptionError, make_app, "bad-boolean-config")
+    
+    def test_bad_integers(self):
+        """
+        Check that the value for ``cookie_timeout`` and ``cookie_reissue_time``
+        are valid integers.
+        
+        """
+        self.assertRaises(BadOptionError, make_app, "bad-cookie-timeout-config")
+        self.assertRaises(BadOptionError, make_app, "bad-cookie-reissue-config")
     
     def test_non_existing_python_objects(self):
         """

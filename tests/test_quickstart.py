@@ -150,6 +150,16 @@ class TestSetupAuth(TestCase):
         self.assertEqual(expected_credentials, 
                          environ['repoze.what.credentials'])
 
+    def test_timeout(self):
+        """AuthTktCookiePlugin's timeout and reissue_time must be supported"""
+        app = setup_sql_auth(MockApplication(), User, None, None, DBSession,
+                             cookie_timeout=2, cookie_reissue_time=1)
+        self._in_registry(app, "cookie", AuthTktCookiePlugin)
+        identifier = app.name_registry['cookie']
+        # Making sure the arguments were passed:
+        self.assertEqual(identifier.timeout, 2)
+        self.assertEqual(identifier.reissue_time, 1)
+
 
 class TestPluginTranslationsFinder(TestCase):
     
