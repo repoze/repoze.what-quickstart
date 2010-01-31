@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2009, Gustavo Narea <me@gustavonarea.net>.
+# Copyright (c) 2009-2010, Gustavo Narea <me@gustavonarea.net>.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the BSD-like license at
@@ -20,7 +20,6 @@ plugin.
 import os
 from unittest import TestCase
 
-from repoze.who.plugins.basicauth import BasicAuthPlugin
 from repoze.who.plugins.auth_tkt import AuthTktCookiePlugin
 from repoze.who.plugins.sa import SQLAlchemyAuthenticatorPlugin, \
                                   SQLAlchemyUserMDPlugin
@@ -28,7 +27,7 @@ from repoze.who.plugins.friendlyform import FriendlyFormPlugin
 from repoze.what.middleware import AuthorizationMetadata
 
 from repoze.what.plugins.quickstart import (add_auth_from_config,
-    BadConfigurationException, MissingOptionError, BadOptionError)
+    MissingOptionError, BadOptionError)
 
 from tests import databasesetup
 from tests.fixture.model import User, Group, Permission, DBSession
@@ -52,6 +51,7 @@ DEFAULT_OPTIONS = {
     'logout_handler': "/logout_handler",
     'post_logout_url': None,
     'login_counter_name': "__logins",
+    'charset': "iso-8859-1",
     }
 
 DEFAULT_TRANSLATIONS = {
@@ -118,6 +118,7 @@ class TestConfig(TestCase):
                              options['post_logout_url'])
             self.assertEqual(challenger.login_counter_name,
                              options['login_counter_name'])
+            self.assertEqual(challenger.charset, options['charset'])
         
         # === Checking the authenticator:
         self._in_registry(app, "sqlauth", SQLAlchemyAuthenticatorPlugin)
@@ -210,6 +211,14 @@ class TestConfig(TestCase):
         app = make_app("minimal-config")
         expected_options = make_options(user_class=User, group_class=Group,
             permission_class=Permission, dbsession=DBSession)
+        self._check_auth(app, expected_options)
+    
+    def test_charset_config(self):
+        """Custom charsets may be specified in config files."""
+        app = make_app("custom-charset")
+        expected_options = make_options(user_class=User, group_class=Group,
+            permission_class=Permission, dbsession=DBSession,
+            charset="us-ascii")
         self._check_auth(app, expected_options)
     
     def test_logging_config(self):

@@ -3,7 +3,7 @@
 #
 # Copyright (c) 2007, Agendaless Consulting and Contributors.
 # Copyright (c) 2008, Florent Aide <florent.aide@gmail.com>.
-# Copyright (c) 2008-2009, Gustavo Narea <me@gustavonarea.net>.
+# Copyright (c) 2008-2010, Gustavo Narea <me@gustavonarea.net>.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the BSD-like license at
@@ -67,7 +67,7 @@ setup(name='repoze.what-quickstart',
           'repoze.who >= 1.0.18',
           'repoze.who.plugins.sa >= 1.0rc1',
           'repoze.what.plugins.sql >= 1.0rc2',
-          'repoze.who-friendlyform',
+          'repoze.who-friendlyform >= 1.0.1',
           ],
       test_suite='nose.collector',
       entry_points = """\

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2008-2009, Gustavo Narea <me@gustavonarea.net>.
+# Copyright (c) 2008-2010, Gustavo Narea <me@gustavonarea.net>.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the BSD-like license at
@@ -159,6 +159,13 @@ class TestSetupAuth(TestCase):
         # Making sure the arguments were passed:
         self.assertEqual(identifier.timeout, 2)
         self.assertEqual(identifier.reissue_time, 1)
+
+    def test_charset(self):
+        """It should be possible to override the default character encoding."""
+        charset = "us-ascii"
+        app = self._makeApp(charset=charset)
+        form = app.name_registry['form']
+        self.assertEqual(form.charset, charset)
 
 
 class TestPluginTranslationsFinder(TestCase):

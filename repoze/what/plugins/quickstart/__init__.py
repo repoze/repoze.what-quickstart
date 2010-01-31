@@ -3,7 +3,7 @@
 #
 # Copyright (c) 2007, Agendaless Consulting and Contributors.
 # Copyright (c) 2008, Florent Aide <florent.aide@gmail.com>.
-# Copyright (c) 2008-2009, Gustavo Narea <me@gustavonarea.net>.
+# Copyright (c) 2008-2010, Gustavo Narea <me@gustavonarea.net>.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the BSD-like license at
@@ -89,7 +89,7 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
                    post_login_url=None, logout_handler='/logout_handler',
                    post_logout_url=None, login_counter_name=None,
                    translations={}, cookie_timeout=None,
-                   cookie_reissue_time=None,
+                   cookie_reissue_time=None, charset="iso-8859-1",
                    **who_args):
     """
     Configure :mod:`repoze.who` and :mod:`repoze.what` with SQL-only 
@@ -192,6 +192,10 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
       Then it will append the metadata providers you pass through the 
       ``mdproviders`` keyword argument, if any.
     
+    The ``charset`` is passed to any component which needs to decode/encode
+    data to/from the user. At present, only
+    :class:`~repoze.who.plugins.friendlyform.FriendlyFormPlugin` does.
+    
     Additional keyword arguments will be passed to 
     :class:`repoze.who.middleware.PluggableAuthenticationMiddleware`.
     
@@ -208,6 +212,9 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
     
     .. versionchanged:: 1.0.5
         Introduced the ``cookie_timeout`` and ``cookie_reissue_time`` arguments.
+    
+    .. versionchanged:: 1.0.6
+        Introduced the ``charset`` arguments.
     
     """
     plugin_translations = find_plugin_translations(translations)
@@ -253,7 +260,9 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
             logout_handler,
             post_logout_url,
             login_counter_name=login_counter_name,
-            rememberer_name='cookie')
+            rememberer_name='cookie',
+            charset=charset,
+            )
     else:
         form = form_plugin
     

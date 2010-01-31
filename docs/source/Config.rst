@@ -51,6 +51,7 @@ including the so-called "translations":
 
     [general]
     dbsession = tests.fixture.model:DBSession
+    charset = utf-8
     
     [authentication]
     user_class = tests.fixture.model:User
@@ -97,6 +98,10 @@ log file.
 .. versionchanged:: 1.0.5
     Added the options ``cookie_timeout`` and ``cookie_reissue_time`` to the
     ``[authentication]`` section.
+    section.
+
+.. versionchanged:: 1.0.6
+    Added the option ``charset`` to the ``[general]`` section.
 
 
 API

@@ -5,6 +5,13 @@
 This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 
+Version 1.0.6 (2010-01-31)
+==========================
+
+Added the ability to make :class:`~repoze.who.plugins.friendlyform.FriendlyFormPlugin`
+use a character encoding other than the default one (ISO-8859-1/Latin-1).
+
+
 Version 1.0.5 (2010-01-27)
 ==========================
 
