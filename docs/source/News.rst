@@ -9,6 +9,8 @@ Version 1.0.7 (2010-05-05)
 ==========================
 
 * Required :mod:`repoze.who` < 2.0, as v2 is not supported yet.
+* Added support for ``skip_authentication`` in the configuration file, by
+  Néstor Salceda. ¡Gracias, Néstor!
 
 
 Version 1.0.6 (2010-01-31)

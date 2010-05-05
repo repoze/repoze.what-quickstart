@@ -67,6 +67,7 @@ including the so-called "translations":
     logout_handler = /log-me-out
     post_logout_url = /do-something-after-logout
     login_counter_name = login_attempts
+    skip_authentication = False
     
     # Logging.
     # You can use the ``here`` variable in ``log_file``, which represents the
@@ -102,6 +103,9 @@ log file.
 
 .. versionchanged:: 1.0.6
     Added the option ``charset`` to the ``[general]`` section.
+
+.. versionchanged:: 1.0.7
+    Added the option ``skip_authentication`` to the ``[authentication]`` section.
 
 
 API

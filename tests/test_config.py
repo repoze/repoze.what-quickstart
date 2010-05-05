@@ -24,6 +24,7 @@ from repoze.who.plugins.auth_tkt import AuthTktCookiePlugin
 from repoze.who.plugins.sa import SQLAlchemyAuthenticatorPlugin, \
                                   SQLAlchemyUserMDPlugin
 from repoze.who.plugins.friendlyform import FriendlyFormPlugin
+from repoze.who.plugins.testutil import AuthenticationForgerMiddleware
 from repoze.what.middleware import AuthorizationMetadata
 
 from repoze.what.plugins.quickstart import (add_auth_from_config,
@@ -229,6 +230,16 @@ class TestConfig(TestCase):
         handler = app.logger.handlers[0]
         self.assertEqual(handler.stream.name,
                          os.path.join(FIXTURE_DIR, "file.log"))
+
+    def test_skip_authentication_config(self):
+        """A config file with skip authentication options."""
+        # Checking skip_authentication enabled:
+        no_authn_app = make_app("skip-authentication-enabled-config")
+        self.assertTrue(isinstance(no_authn_app, AuthenticationForgerMiddleware))
+        
+        # Checking skip_authentication disabled:
+        authn_app = make_app("skip-authentication-disabled-config")
+        self.assertFalse(isinstance(authn_app, AuthenticationForgerMiddleware))
     
     def test_missing_options(self):
         """Configuration files with missing mandatory options."""

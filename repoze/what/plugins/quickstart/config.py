@@ -150,7 +150,8 @@ class _AuthConf(object):
         self._add_string("authentication", "login_counter_name")
         self._add_string("authentication", "log_level")
         self._add_string("authentication", "log_file")
-        
+        self._add_boolean("authentication", "skip_authentication")
+
         # Adding authorization options:
         self._add_object("authorization", "group_class")
         self._add_object("authorization", "permission_class")
