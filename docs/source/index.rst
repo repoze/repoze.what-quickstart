@@ -51,9 +51,9 @@ How to use it
 
 To get started quickly, you may copy the SQLAlchemy-powered model 
 defined in `model_sa_example.py 
-<http://code.gustavonarea.net/repoze.what-quickstart/_static/model_sa_example.py>`_
+<http://what.repoze.org/docs/plugins/quickstart/_static/model_sa_example.py>`_
 (or `model_elixir_example.py 
-<http://code.gustavonarea.net/repoze.what-quickstart/_static/model_elixir_example.py>`_
+<http://what.repoze.org/docs/plugins/quickstart/_static/model_elixir_example.py>`_
 for Elixir) and then create at least a few rows to try it out::
 
     u = User()
