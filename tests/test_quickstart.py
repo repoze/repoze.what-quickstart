@@ -22,15 +22,16 @@ from os import path
 import sys
 from unittest import TestCase
 
+from repoze.who.interfaces import IAuthenticator
 from repoze.who.plugins.basicauth import BasicAuthPlugin
 from repoze.who.plugins.auth_tkt import AuthTktCookiePlugin
 from repoze.who.plugins.sa import SQLAlchemyAuthenticatorPlugin, \
                                   SQLAlchemyUserMDPlugin
 from repoze.who.plugins.friendlyform import FriendlyFormPlugin
-
 from repoze.what.middleware import AuthorizationMetadata
 from repoze.what.plugins.quickstart import setup_sql_auth, \
                                            find_plugin_translations
+from zope.interface import implements
 
 from tests import databasesetup
 from tests.fixture.model import User, Group, Permission, DBSession
@@ -83,7 +84,20 @@ class TestSetupAuth(TestCase):
     def test_non_default_form_plugin(self):
         app = self._makeApp(form_plugin=BasicAuthPlugin('1+1=2'))
         self._in_registry(app, 'main_identifier', BasicAuthPlugin)
-
+    
+    def test_additional_authenticators(self):
+        authenticators = [("mock_auth", MockAuthenticator())]
+        app = self._makeApp(authenticators=authenticators)
+        self._in_registry(app, 'mock_auth', MockAuthenticator)
+        self._in_registry(app, 'sqlauth', SQLAlchemyAuthenticatorPlugin)
+    
+    def test_no_default_authenticator(self):
+        authenticators = [("mock_auth", MockAuthenticator())]
+        app = self._makeApp(authenticators=authenticators,
+                            use_default_authenticator=False)
+        self._in_registry(app, 'mock_auth', MockAuthenticator)
+        assert "sqlauth" not in app.name_registry
+    
     def test_custom_login_urls(self):
         login_url = '/myapp/login'
         login_handler = '/myapp/login_handler'
@@ -212,4 +226,19 @@ class TestPluginTranslationsFinder(TestCase):
         md_translations = {'user_name': translations['user_name']}
         self.assertEqual(md_translations, 
                          plugin_translations['mdprovider'])
+
+
+#{ Test utilities
+
+
+class MockAuthenticator(object):
+    """A repoze.who authenticator that does nothing."""
+    implements(IAuthenticator)
+    
+    # IAuthenticator
+    def authenticate(self, environ, identity):
+        pass
+
+
+#}
 

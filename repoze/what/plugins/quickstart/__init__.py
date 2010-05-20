@@ -90,6 +90,7 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
                    post_logout_url=None, login_counter_name=None,
                    translations={}, cookie_timeout=None,
                    cookie_reissue_time=None, charset="iso-8859-1",
+                   use_default_authenticator=True,
                    **who_args):
     """
     Configure :mod:`repoze.who` and :mod:`repoze.what` with SQL-only 
@@ -133,6 +134,9 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
     :param cookie_reissue_time: How often should the session cookie be reissued
         (in seconds); must be less than ``timeout``.
     :type cookie_reissue_time: :class:`int`
+    :param use_default_authenticator: Whether the default SQL authenticator
+        should be used.
+    :type use_default_authenticator: :class:`bool`
     :return: The WSGI application with authentication and authorization
         middleware.
     
@@ -169,12 +173,14 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
     
     * Authenticators:
     
-      * :class:`repoze.who.plugins.sa.SQLAlchemyAuthenticatorPlugin`, using
-        the ``user_class`` and ``dbsession`` arguments as its user class and
-        DB session, respectively.
+      * :class:`repoze.who.plugins.sa.SQLAlchemyAuthenticatorPlugin` (unless
+        ``use_default_authenticator`` is ``False``), using the ``user_class``
+        and ``dbsession`` arguments as its user class and DB session,
+        respectively.
       
-      Then it will append the authenticators you pass through the 
-      ``authenticators`` keyword argument, if any.
+      Then it will be appended to the authenticators you pass through the 
+      ``authenticators`` keyword argument, if any. The default authenticator
+      would have the lowest precedence.
     
     * Challengers:
     
@@ -214,7 +220,10 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
         Introduced the ``cookie_timeout`` and ``cookie_reissue_time`` arguments.
     
     .. versionchanged:: 1.0.6
-        Introduced the ``charset`` arguments.
+        Introduced the ``charset`` argument.
+    
+    .. versionchanged:: 1.0.8
+        Introduced the ``use_default_authenticator`` argument.
     
     """
     plugin_translations = find_plugin_translations(translations)
@@ -237,11 +246,13 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
         permission_adapters = {'sql_auth': permission_adapter}
     
     # Setting the repoze.who authenticators:
-    sqlauth = SQLAlchemyAuthenticatorPlugin(user_class, dbsession)
-    sqlauth.translations.update(plugin_translations['authenticator'])
     if 'authenticators' not in who_args:
         who_args['authenticators'] = []
-    who_args['authenticators'].append(('sqlauth', sqlauth))
+        
+    if use_default_authenticator:
+        sqlauth = SQLAlchemyAuthenticatorPlugin(user_class, dbsession)
+        sqlauth.translations.update(plugin_translations['authenticator'])
+        who_args['authenticators'].append(('sqlauth', sqlauth))
     
     cookie = AuthTktCookiePlugin(cookie_secret, cookie_name,
                                  timeout=cookie_timeout,

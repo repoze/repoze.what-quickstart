@@ -5,6 +5,14 @@
 This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 
+Version 1.0.8 (2010-05-20)
+==========================
+
+* Made :func:`~repoze.what.plugins.quickstart.setup_sql_auth` skip the default
+  :mod:`repoze.who` SQLAlchemy authenticator when requested so with the
+  ``use_default_authenticator`` argument.
+
+
 Version 1.0.7 (2010-05-05)
 ==========================
 
