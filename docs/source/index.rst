@@ -31,19 +31,15 @@ The minimum requirements are SQLAlchemy, :mod:`repoze.who.plugins.sa`,
     
     easy_install repoze.what-quickstart
 
-The development mainline is available at the following Subversion repository::
-
-    http://svn.repoze.org/repoze.what/plugins/quickstart/trunk/
-
-
-How to get help?
-================
+Support and development
+=======================
 
 The prefered place to ask questions is the `Repoze mailing list 
-<http://lists.repoze.org/listinfo/repoze-dev>`_ or the `#repoze 
-<irc://irc.freenode.net/#repoze>`_ IRC channel. Bugs reports and feature 
-requests should be sent to `the issue tracker of the Repoze project 
-<http://bugs.repoze.org/>`_.
+<http://lists.repoze.org/listinfo/repoze-dev>`_. Some users are on the `#repoze 
+<irc://irc.freenode.net/#repoze>`_ IRC channel.
+
+This project is hosted on `GitHub
+<https://github.com/repoze/repoze.what-quickstart>`_.
 
 
 How to use it
