@@ -29,6 +29,7 @@ __all__ = ("add_auth_from_config", "BadConfigurationException",
 
 _SUPPORTED_TRANSLATIONS = (
     "validate_password",
+    "dummy_validate_password",
     "users",
     "user_name",
     "groups",

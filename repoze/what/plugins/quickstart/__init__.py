@@ -28,6 +28,7 @@ from repoze.who.plugins.sa import SQLAlchemyAuthenticatorPlugin, \
                                   SQLAlchemyUserMDPlugin
 from repoze.who.plugins.friendlyform import FriendlyFormPlugin
 from repoze.who.config import _LEVELS
+from repoze.who.utils import resolveDotted
 
 from repoze.what.middleware import setup_auth
 from repoze.what.plugins.sql import configure_sql_adapters
@@ -57,6 +58,9 @@ def find_plugin_translations(translations={}):
     
     if 'validate_password' in translations:
         authenticator['validate_password'] = translations['validate_password']
+    if 'dummy_validate_password' in translations:
+        authenticator['dummy_validate_password'] = \
+            resolveDotted(translations['dummy_validate_password'])
     if 'user_name' in translations:
         group_adapter['item_name'] = translations['user_name']
         authenticator['user_name'] = translations['user_name']

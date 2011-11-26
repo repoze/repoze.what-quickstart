@@ -31,6 +31,7 @@ from repoze.who.plugins.friendlyform import FriendlyFormPlugin
 from repoze.what.middleware import AuthorizationMetadata
 from repoze.what.plugins.quickstart import setup_sql_auth, \
                                            find_plugin_translations
+from repoze.who.utils import resolveDotted
 from zope.interface import implements
 
 from tests import databasesetup
@@ -186,6 +187,7 @@ class TestPluginTranslationsFinder(TestCase):
     
     def test_it(self):
         # --- Setting it up ---
+        dummy_fn = 'tests.fixture.model:dummy_validate_password' 
         translations = {
             'validate_password': 'pass_checker',
             'user_name': 'member_name',
@@ -193,7 +195,8 @@ class TestPluginTranslationsFinder(TestCase):
             'group_name': 'team_name',
             'groups': 'teams',
             'permission_name': 'perm_name',
-            'permissions': 'perms'
+            'permissions': 'perms',
+            'dummy_validate_password': dummy_fn
             }
         plugin_translations = find_plugin_translations(translations)
         # --- Testing it ---
@@ -219,6 +222,7 @@ class TestPluginTranslationsFinder(TestCase):
         auth_translations = {
             'user_name': translations['user_name'],
             'validate_password': translations['validate_password'],
+            'dummy_validate_password': resolveDotted(dummy_fn)
             }
         self.assertEqual(auth_translations, 
                          plugin_translations['authenticator'])
