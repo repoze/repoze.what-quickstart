@@ -26,6 +26,7 @@ from repoze.who.plugins.sa import SQLAlchemyAuthenticatorPlugin, \
 from repoze.who.plugins.friendlyform import FriendlyFormPlugin
 from repoze.who.plugins.testutil import AuthenticationForgerMiddleware
 from repoze.what.middleware import AuthorizationMetadata
+from repoze.who.utils import resolveDotted
 
 from repoze.what.plugins.quickstart import (add_auth_from_config,
     MissingOptionError, BadOptionError)
@@ -63,6 +64,7 @@ DEFAULT_TRANSLATIONS = {
     'permissions': "permissions",
     'permission_name': "permission_name",
     'validate_password': "validate_password",
+    'dummy_validate_password': None
     }
 
 
@@ -129,6 +131,11 @@ class TestConfig(TestCase):
                          options['translations']['user_name'])
         self.assertEqual(authenticator.translations['validate_password'],
                          options['translations']['validate_password'])
+        dummy_fn = options['translations']['dummy_validate_password']
+        if dummy_fn is not None:
+            dummy_fn = resolveDotted(dummy_fn)
+        self.assertEqual(authenticator.translations['dummy_validate_password'],
+                         dummy_fn)
         self.assertEqual(authenticator.dbsession, options['dbsession'])
         
         # === Checking the metadata provider:
@@ -194,6 +201,8 @@ class TestConfig(TestCase):
             'group_name': "group_name",
             'permissions': "perms",
             'permission_name': "perm_name",
+            'dummy_validate_password':
+                'tests.fixture.model:dummy_validate_password'
             }
         expected_options = make_options(user_class=User, group_class=Group,
             permission_class=Permission, dbsession=DBSession,
