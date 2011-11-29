@@ -2,7 +2,7 @@
 The :mod:`repoze.what` Quickstart plugin
 ****************************************
 
-:Author: Gustavo Narea.
+:Author: `Gustavo Narea <http://gustavonarea.net/>`_.
 :Latest release: |release|
 
 .. module:: repoze.what.plugins.quickstart

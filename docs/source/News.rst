@@ -5,6 +5,14 @@
 This document describes the releases of :mod:`repoze.what.plugins.quickstart`.
 
 
+Version 1.0.9 (2011-11-29)
+==========================
+
+* Added support for the optional timing attack protection in
+  :mod:`repoze.who.plugins.sa` (``dummy_validate_password``), by `Arturo Sevilla
+  <https://github.com/repoze/repoze.what-quickstart/pull/1>`_.
+
+
 Version 1.0.8 (2010-05-20)
 ==========================
 

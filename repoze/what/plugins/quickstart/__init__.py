@@ -3,7 +3,7 @@
 #
 # Copyright (c) 2007, Agendaless Consulting and Contributors.
 # Copyright (c) 2008, Florent Aide <florent.aide@gmail.com>.
-# Copyright (c) 2008-2010, Gustavo Narea <me@gustavonarea.net>.
+# Copyright (c) 2008-2011, Gustavo Narea and contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the BSD-like license at
@@ -220,14 +220,18 @@ def setup_sql_auth(app, user_class, group_class, permission_class,
         If you don't want to use the groups/permissions-based authorization
         pattern, then set ``group_class`` and ``permission_class`` to ``None``.
     
-    .. versionchanged:: 1.0.5
+    .. versionadded:: 1.0.5
         Introduced the ``cookie_timeout`` and ``cookie_reissue_time`` arguments.
     
-    .. versionchanged:: 1.0.6
+    .. versionadded:: 1.0.6
         Introduced the ``charset`` argument.
     
-    .. versionchanged:: 1.0.8
+    .. versionadded:: 1.0.8
         Introduced the ``use_default_authenticator`` argument.
+    
+    .. versionadded:: 1.0.9
+        Added support for the ``dummy_validate_password`` translation in
+        :class:`repoze.who.plugins.sa.SQLAlchemyAuthenticatorPlugin` v1.0.1.
     
     """
     plugin_translations = find_plugin_translations(translations)
